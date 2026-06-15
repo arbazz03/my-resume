@@ -1,0 +1,168 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #e5e5e5;
+  font-family: "Arial", sans-serif;
+  color: #222;
+}
+
+.resume-page {
+  width: 290mm;
+  min-height: 297mm;
+  margin: 20px auto;
+  background: white;
+  padding: 30px;
+}
+
+/* HEADER */
+
+.header {
+  margin-bottom: 25px;
+}
+
+.header h1 {
+  font-size: 42px;
+  color: #111;
+  font-weight: 700;
+  text-align: left;
+}
+
+.header h3 {
+  color: #1e63ff;
+  font-size: 20px;
+  margin-top: 5px;
+  text-align: left;
+}
+
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #555;
+}
+
+/* BODY */
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 65% 35%;
+  gap: 25px;
+}
+
+/* SECTION */
+
+section {
+  margin-bottom: 24px;
+}
+
+section h2 {
+  font-size: 20px;
+  font-weight: 700;
+  border-bottom: 3px solid #111;
+  padding-bottom: 5px;
+  margin-bottom: 12px;
+  color: #111;
+}
+
+/* EXPERIENCE */
+
+.job {
+  margin-bottom: 18px;
+}
+
+.job h4 {
+  font-size: 18px;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.blue {
+  color: #1565ff;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+small {
+  display: block;
+  margin: 4px 0 8px;
+  color: #666;
+  font-size: 12px;
+}
+
+ul {
+  padding-left: 18px;
+}
+
+li {
+  text-align: left;
+  margin-bottom: 5px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* EDUCATION */
+
+.edu {
+  margin-bottom: 18px;
+}
+
+.edu h4 {
+  font-size: 17px;
+  margin-bottom: 3px;
+}
+
+/* DIVIDER */
+
+.divider {
+  height: 1px;
+  background: #ddd;
+  margin: 15px 0;
+}
+
+/* SKILLS */
+
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-list span {
+  background: #f4f7ff;
+  border: 1px solid #d7e2ff;
+  color: #1565ff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+/* PARAGRAPH */
+
+p {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* PRINT */
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .resume-page {
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+  }
+}
+
+
+
+
