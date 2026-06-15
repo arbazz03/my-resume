@@ -35,8 +35,6 @@ export default function ResumePreview() {
           <section>
             <h2>EXPERIENCE</h2>
 
-            <div className="divider"></div>
-
             <div className="job">
               <h4>Laravel Full Stack Developer</h4>
 

@@ -85,14 +85,14 @@ section h2 {
 .blue {
   color: #1565ff;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 small {
   display: block;
   margin: 4px 0 8px;
-  color: #666;
-  font-size: 12px;
+  color: black;
+  font-size: 14px;
 }
 
 ul {
