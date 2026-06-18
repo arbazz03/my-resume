@@ -1,197 +1,256 @@
+import { useRef, useState } from "react";
 import "../styles/resume.css";
 
 export default function ResumePreview() {
+  const resumeRef = useRef(null);
+  const [downloadingPng, setDownloadingPng] = useState(false);
+  const [downloadingPdf, setDownloadingPdf] = useState(false);
+
+  // ── Download as PNG ──────────────────────────
+  const handleDownloadPng = async () => {
+    setDownloadingPng(true);
+    try {
+      const html2canvas = (await import("html2canvas")).default;
+      const canvas = await html2canvas(resumeRef.current, {
+        scale: 3,
+        useCORS: true,
+        backgroundColor: "#ffffff",
+        logging: false,
+      });
+      const link = document.createElement("a");
+      link.download = "Mohammed_Arbaaz_Resume.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    } catch (err) {
+      console.error("PNG download failed:", err);
+      alert("PNG download failed.\nnpm install html2canvas");
+    }
+    setDownloadingPng(false);
+  };
+
+  // ── Download as PDF — exact preview match, 1 page ──
+  // Install: npm install html2canvas jspdf
+  const handleDownloadPdf = async () => {
+    setDownloadingPdf(true);
+    try {
+      const html2canvas = (await import("html2canvas")).default;
+      const { jsPDF }   = await import("jspdf");
+
+      const el = resumeRef.current;
+
+      // Capture ONLY the visible rendered size — not scrollHeight
+      const rect = el.getBoundingClientRect();
+      const canvas = await html2canvas(el, {
+        scale: 3,
+        useCORS: true,
+        backgroundColor: "#ffffff",
+        logging: false,
+        width: rect.width,
+        height: rect.height,        // exact rendered height, no extra space
+        windowWidth: rect.width,
+        windowHeight: rect.height,
+      });
+
+      const imgData = canvas.toDataURL("image/png");
+
+      // Convert px to mm: 1px = 0.264583mm at 96dpi
+      const pxToMm = 0.264583;
+      const contentW = rect.width  * pxToMm;   // should be ~210mm
+      const contentH = rect.height * pxToMm;   // actual content height in mm
+
+      // Create PDF exactly the size of the content (no blank space)
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: [contentW, contentH],   // custom page size = exact content
+        compress: true,
+      });
+
+      pdf.addImage(imgData, "PNG", 0, 0, contentW, contentH);
+      pdf.save("Mohammed_Arbaaz_Resume.pdf");
+    } catch (err) {
+      console.error("PDF download failed:", err);
+      alert("PDF download failed.\nnpm install html2canvas jspdf");
+    }
+    setDownloadingPdf(false);
+  };
+
+  const isLoading = downloadingPng || downloadingPdf;
+
   return (
-    <div className="resume-page">
-      {/* Header */}
-      <div className="header">
-        <h1>MOHAMMED ARBAAZ KHAN</h1>
+    <div className="resume-wrapper">
 
-        <h3>Laravel Developer</h3>
-
-        <div className="contact">
-          <span>📞 7304733409</span>
-          <span>✉ arbaazkhan007.ak3@gmail.com</span>
-          <span>🔗 linkedin.com/in/arbaazkhan03</span>
-          <span>📍 Thane</span>
+      {/* ── Toolbar ── */}
+      <div className="resume-toolbar">
+        <span className="toolbar-title">📄 Resume — A4 Portrait</span>
+        <div className="toolbar-actions">
+          <button className="btn-download btn-png" onClick={handleDownloadPng} disabled={isLoading}>
+            {downloadingPng ? "⏳ Generating…" : "⬇ Download PNG"}
+          </button>
+          <button className="btn-download btn-pdf" onClick={handleDownloadPdf} disabled={isLoading}>
+            {downloadingPdf ? "⏳ Generating…" : "⬇ Download PDF"}
+          </button>
         </div>
       </div>
 
-      <div className="main-grid">
-        {/* LEFT */}
-        <div className="left">
-          <section>
-            <h2>SUMMARY</h2>
+      {/* ── Resume Page ── */}
+      <div className="resume-scroll">
+        <div className="resume-page" ref={resumeRef}>
 
-            <p>
-              Backend Developer with 3.9 years of experience in Laravel, PHP,
-              MySQL, REST APIs, HRMS, payroll, attendance management, workflow
-              automation, and third-party integrations. Built scalable backend
-              systems for leave management, payroll processing, and attendance
-              synchronization.
-            </p>
-          </section>
+          {/* ══ HEADER — ATS reads <h1> as candidate name ══ */}
+          <header className="r-header">
+            <h1 className="r-name">Mohammed Arbaaz Riyaz Ahmed Khan</h1>
+            <p className="r-role">Laravel Developer</p>
+            <div className="r-contact">
+              <span>📞 7304733409</span>
+              <span>✉ arbaazkhan007.ak3@gmail.com</span>
+              <span>🔗 linkedin.com/in/arbaazkhan03</span>
+              <span>📍 Thane</span>
+            </div>
+          </header>
 
-          <section>
-            <h2>EXPERIENCE</h2>
+          {/* ══ BODY GRID ══ */}
+          <div className="r-grid">
 
-            <div className="job">
-              <h4>Laravel Full Stack Developer</h4>
+            {/* ════ LEFT COLUMN ════ */}
+            <div className="r-left">
 
-              <p className="blue">Core Ocean Solutions Pvt Ltd</p>
+              {/* SUMMARY — ATS keyword-rich paragraph */}
+              <section className="r-section">
+                <h2 className="r-section-title">Summary</h2>
+                <p className="r-body-text">
+                  Backend Developer with 3.9+ years of experience in designing and developing
+                  scalable web applications using Laravel, PHP, MySQL, REST APIs, and third-party
+                  integrations. Experienced in building enterprise-level HRMS, Attendance
+                  Management, Payroll, and Employee Benefit systems. Strong expertise in business
+                  workflow automation, API integration, payroll processing, database design, and
+                  performance optimization. Proven ability to translate complex business
+                  requirements into efficient backend solutions while maintaining code quality
+                  and system reliability.
+                </p>
+              </section>
 
-              <small>June 2025 - Present | Thane</small>
+              {/* EXPERIENCE */}
+              <section className="r-section">
+                <h2 className="r-section-title">Experience</h2>
 
-              <ul>
-                <li>
-                  Built and maintained RESTful APIs and backend services using
-                  Laravel and MySQL.
-                </li>
+                <div className="r-job">
+                  <h4 className="r-job-title">Laravel Full Stack Developer</h4>
+                  <p className="r-company">Coreocean Solutions LLP</p>
+                  <small className="r-meta">07/2025 – Present | Thane</small>
+                  <ul className="r-list">
+                    <li>Developed and maintained a comprehensive HRMS application for employee management, attendance tracking, leave management, payroll processing, and reporting.</li>
+                    <li>Owned implementation of complex business workflows: leave approvals, cancellation, role-based hierarchy, payroll validations, and attendance synchronization.</li>
+                    <li>Enhanced the payroll engine by automating salary calculations using attendance, leave, and supplementary components.</li>
+                    <li>Delivered business-critical enhancements across HRMS, payroll, reporting, and employee management modules.</li>
+                    <li>Optimized application performance, database queries, and backend logic to improve system reliability.</li>
+                    <li><strong>Skills:</strong> Laravel, MySQL, HTML, CSS, Gitlab, Cpanel.</li>
+                  </ul>
+                </div>
 
-                <li>
-                  Integrated third-party APIs and notification services across
-                  multiple applications.
-                </li>
+                <div className="r-job">
+                  <h4 className="r-job-title">Laravel Backend Developer</h4>
+                  <p className="r-company">FynTune Solution Private Limited</p>
+                  <small className="r-meta">09/2022 – 07/2025 | Turbhe, Navi Mumbai</small>
+                  <ul className="r-list">
+                    <li>Developed custom backend solutions using Laravel to streamline data processing and improve system efficiency.</li>
+                    <li>Implemented RESTful APIs to facilitate seamless communication between front-end and back-end systems.</li>
+                    <li>Managed third-party API integrations and communication channels to notify users for events.</li>
+                    <li>Integrated third-party APIs and services to enhance functionality of internal systems.</li>
+                    <li><strong>Skills:</strong> Laravel, MySQL, Gitea, Postman.</li>
+                  </ul>
+                </div>
+              </section>
 
-                <li>
-                  Developed HRMS and analytics modules for employee, attendance,
-                  salary, and reporting workflows.
-                </li>
-                <li>
-                  Collaborated with frontend teams to deliver scalable backend
-                  solutions and clean API contracts.
-                </li>
-              </ul>
+              {/* PROJECTS */}
+              <section className="r-section">
+                <h2 className="r-section-title">Projects</h2>
+
+                <div className="r-job">
+                  <h4 className="r-job-title">Human Resource Management System (HRMS)</h4>
+                  <ul className="r-list">
+                    <li>Developed HRMS Web app to manage employee data, attendance, and salary operations.</li>
+                    <li>Built authentication modules — login, logout, role-based access control using Laravel.</li>
+                    <li>Integrated AdminLTE dashboard; built attendance tracking and salary slip generation modules.</li>
+                    <li><strong>Skills:</strong> Laravel, AdminLTE, MySQL, Blade, HTML/CSS.</li>
+                  </ul>
+                </div>
+
+                <div className="r-job">
+                  <h4 className="r-job-title">Quote Management System</h4>
+                  <ul className="r-list">
+                    <li>Led backend development and database schema design; participated in code reviews.</li>
+                    <li>Collaborated with frontend team to ensure seamless API integration and data flow.</li>
+                    <li><strong>Skills:</strong> Laravel, MySQL, Github.</li>
+                  </ul>
+                </div>
+              </section>
             </div>
 
-            <div className="job">
-              <h4>Laravel Backend Developer</h4>
+            {/* ════ RIGHT COLUMN ════ */}
+            <div className="r-right">
 
-              <p className="blue">Fyntune Solutions Pvt Ltd</p>
+              {/* EDUCATION */}
+              <section className="r-section">
+                <h2 className="r-section-title">Education</h2>
 
-              <small>Nov 2022 - July 2025 | Turbhe</small>
+                <div className="r-edu">
+                  <h4 className="r-edu-degree">BSCIT</h4>
+                  <p className="r-company">SJRS College, Kalwa</p>
+                  <small className="r-meta">2017 – 2020</small>
+                </div>
 
-              <ul>
-                <li>
-                  Developed HRMS modules for leave management, attendance,
-                  payroll, and reporting.
-                </li>
+                <div className="r-edu">
+                  <h4 className="r-edu-degree">MCA</h4>
+                  <p className="r-company">ASM IMCOST, Thane</p>
+                  <small className="r-meta">2020 – 2022</small>
+                </div>
 
-                <li>
-                  Integrated attendance management system APIs with HRMS for
-                  real-time leave and attendance synchronization.
-                </li>
+                <div className="r-edu">
+                  <h4 className="r-edu-degree">HSC</h4>
+                  <p className="r-company">Satish PradhanDnyanasadhana College</p>
+                  <small className="r-meta">2017</small>
+                </div>
 
-                <li>
-                  Optimized leave approval and cancellation workflows with
-                  hierarchical approvals and payroll validation checks.
-                </li>
-                <li>
-                  Enhanced salary generation logic using attendance data,
-                  improving payroll accuracy and automation.
-                </li>
-                <li>
-                  Implemented payroll change requests for salary, pension, and
-                  supplementary calculations.
-                </li>
-              </ul>
+                <div className="r-edu">
+                  <h4 className="r-edu-degree">SSC</h4>
+                  <p className="r-company">Shreerang Vidyalaya English Medium</p>
+                  <small className="r-meta">2015</small>
+                </div>
+              </section>
+
+              {/* SKILLS — ATS extracts each keyword from span text */}
+              <section className="r-section">
+                <h2 className="r-section-title">Skills</h2>
+                <div className="r-skill-list">
+                  {[
+                    "Laravel", "PHP", "HTML", "CSS",
+                    "MySQL", "Linux", "GitHub", "REST API",
+                    "Postman", "AdminLTE", "Blade", "Cpanel",
+                  ].map((s) => (
+                    <span key={s} className="r-skill-tag">{s}</span>
+                  ))}
+                </div>
+              </section>
+
+              {/* LANGUAGES */}
+              <section className="r-section">
+                <h2 className="r-section-title">Languages</h2>
+                <div className="r-lang-list">
+                  {[
+                    ["English", "Professional"],
+                    ["Hindi",   "Native"],
+                    ["Urdu",    "Native"],
+                  ].map(([lang, level]) => (
+                    <div className="r-lang-item" key={lang}>
+                      <span className="r-lang-name">{lang}</span>
+                      <span className="r-lang-level">{level}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
             </div>
-
-            <div className="job">
-              <h4>Internship</h4>
-
-              <p className="blue">Commtex Solutions Pvt</p>
-
-              <small>Jun 2022 - Oct 2022 | Chembur Mumbai</small>
-
-              <ul>
-                <li>Developed and implemented user-friendly interfaces.</li>
-
-                <li>Integrated APIs to dynamically fetch data.</li>
-
-                <li>Provided backend support during testing.</li>
-              </ul>
-            </div>
-          </section>
-
-          <section>
-            <h2>PROJECT</h2>
-
-            <h4>Employee Benefits</h4>
-
-            <p className="blue">Organization Name</p>
-
-            <ul>
-              <li>Developed custom backend solutions.</li>
-
-              <li>Implemented REST APIs.</li>
-
-              <li>Improved overall application workflow.</li>
-            </ul>
-          </section>
-        </div>
-
-        {/* RIGHT */}
-        <div className="right">
-          <section>
-            <h2>EDUCATION</h2>
-
-            <div className="edu">
-              <h4>BSCIT</h4>
-              <p className="blue">JSRS COLLEGE, KALWA</p>
-              <small>2017 - 2020</small>
-            </div>
-
-            <div className="edu">
-              <h4>MCA</h4>
-              <p className="blue">ASM IMCOST, THANE</p>
-              <small>2020 - 2022</small>
-            </div>
-
-            <div className="edu">
-              <h4>HSC</h4>
-              <p className="blue">Satish Pradhan College</p>
-            </div>
-
-            <div className="edu">
-              <h4>SSC</h4>
-              <p className="blue">Shreerang Vidyalaya</p>
-            </div>
-          </section>
-
-          <section>
-            <h2>OTHER PROJECTS</h2>
-
-            <h4>Quote Management System</h4>
-
-            <ul>
-              <li>Backend development.</li>
-              <li>Database design.</li>
-              <li>Code review and testing.</li>
-            </ul>
-
-            <h4>Analytics Reports</h4>
-
-            <ul>
-              <li>Built analytics dashboard.</li>
-              <li>Generated reports.</li>
-              <li>Laravel + MySQL.</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2>SKILLS</h2>
-
-            <div className="skill-list">
-              <span>Laravel</span>
-              <span>PHP</span>
-              <span>MySQL</span>
-              <span>React</span>
-              <span>JavaScript</span>
-              <span>Bootstrap</span>
-              <span>REST API</span>
-            </div>
-          </section>
+          </div>
         </div>
       </div>
     </div>

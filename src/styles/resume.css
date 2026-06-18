@@ -1,168 +1,340 @@
+/* ─── RESET ─────────────────────────────────── */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ─── PAGE SHELL ──────────────────────────────── */
 body {
-  background: #e5e5e5;
+  background: #c8cdd6;
   font-family: "Arial", sans-serif;
-  color: #222;
+  color: #111111;
+  text-align: left;
 }
 
+.resume-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ─── TOOLBAR ─────────────────────────────────── */
+.resume-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: #111827;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 24px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+}
+
+.toolbar-title {
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-download {
+  color: #fff;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.1s;
+}
+
+.btn-png  { background: #1e63ff; }
+.btn-png:hover:not(:disabled)  { background: #1450dd; transform: translateY(-1px); }
+.btn-pdf  { background: #e53935; }
+.btn-pdf:hover:not(:disabled)  { background: #c62828; transform: translateY(-1px); }
+.btn-download:disabled { background: #4b5563; cursor: not-allowed; transform: none; }
+
+/* ─── SCROLL AREA ─────────────────────────────── */
+.resume-scroll {
+  flex: 1;
+  padding: 24px 20px 40px;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+/* ─── RESUME PAGE — A4 Portrait, 1 page ───────── */
+/* 
+  ATS NOTES:
+  - Single-column friendly class names (no floats, no tables)
+  - All text is real DOM text (not images)
+  - Standard section headings: SUMMARY, EXPERIENCE, EDUCATION, SKILLS
+  - No headers/footers, no text boxes
+  - Font: Arial (ATS-safe)
+*/
 .resume-page {
-  width: 290mm;
-  min-height: 297mm;
-  margin: 20px auto;
-  background: white;
-  padding: 30px;
-}
-
-/* HEADER */
-
-.header {
-  margin-bottom: 25px;
-}
-
-.header h1 {
-  font-size: 42px;
-  color: #111;
-  font-weight: 700;
+  width: 210mm;
+  height: 297mm;           /* hard A4 height — forces 1 page */
+  overflow: hidden;        /* clips if content slightly overflows */
+  background: #ffffff;
+  padding: 8mm 12mm 6mm 12mm;   /* tight margins = more content space */
+  box-shadow: 0 6px 40px rgba(0,0,0,0.22);
   text-align: left;
 }
 
-.header h3 {
-  color: #1e63ff;
-  font-size: 20px;
+/* ─── HEADER ──────────────────────────────────── */
+.r-header {
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #111111;
+  text-align: left;
+}
+
+/* ATS: plain <h1> — most parsers read h1 as name */
+.r-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: #000000;
+  line-height: 1.1;
+  text-align: left;
+  margin-bottom: 1px;
+}
+
+.r-role {
+  color: #1a50d4;
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 1px;        /* tight gap between name and title */
+  text-align: left;
+}
+
+.r-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-top: 5px;
-  text-align: left;
-}
-
-.contact {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-top: 12px;
-  font-size: 13px;
-  color: #555;
-}
-
-/* BODY */
-
-.main-grid {
-  display: grid;
-  grid-template-columns: 65% 35%;
-  gap: 25px;
-}
-
-/* SECTION */
-
-section {
-  margin-bottom: 24px;
-}
-
-section h2 {
-  font-size: 20px;
-  font-weight: 700;
-  border-bottom: 3px solid #111;
-  padding-bottom: 5px;
-  margin-bottom: 12px;
-  color: #111;
-}
-
-/* EXPERIENCE */
-
-.job {
-  margin-bottom: 18px;
-}
-
-.job h4 {
-  font-size: 18px;
-  color: #222;
-  margin-bottom: 4px;
-}
-
-.blue {
-  color: #1565ff;
+  font-size: 10px;
+  color: #222222;
   font-weight: 600;
-  font-size: 18px;
-}
-
-small {
-  display: block;
-  margin: 4px 0 8px;
-  color: black;
-  font-size: 14px;
-}
-
-ul {
-  padding-left: 18px;
-}
-
-li {
   text-align: left;
-  margin-bottom: 5px;
-  font-size: 13px;
+}
+
+/* ─── BODY GRID ───────────────────────────────── */
+.r-grid {
+  display: grid;
+  grid-template-columns: 61% 39%;
+  gap: 14px;
+  align-items: start;
+  text-align: left;
+  margin-top: 6px;
+}
+
+/* ─── SECTION ─────────────────────────────────── */
+.r-section {
+  margin-bottom: 9px;
+  text-align: left;
+}
+
+/* ATS: uses <h2> — standard section heading tag */
+.r-section-title {
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #000000;
+  border-bottom: 2px solid #000000;
+  padding-bottom: 2px;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+/* ─── BODY TEXT ───────────────────────────────── */
+.r-body-text {
+  font-size: 9.8px;
+  line-height: 1.55;
+  color: #111111;
+  text-align: left;
+}
+
+/* ─── JOB ─────────────────────────────────────── */
+.r-job {
+  margin-bottom: 7px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed #cccccc;
+  text-align: left;
+}
+
+.r-job:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+/* ATS: uses <h4> for job title */
+.r-job-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 1px;
+  text-align: left;
+}
+
+.r-company {
+  color: #1a50d4;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.r-meta {
+  display: block;
+  font-size: 9.5px;
+  color: #333333;
+  font-weight: 600;
+  margin: 2px 0 4px;
+  text-align: left;
+}
+
+/* ─── LIST ────────────────────────────────────── */
+.r-list {
+  padding-left: 13px;
+  text-align: left;
+}
+
+.r-list li {
+  font-size: 9.8px;
   line-height: 1.5;
+  color: #111111;
+  margin-bottom: 2px;
+  text-align: left;
 }
 
-/* EDUCATION */
-
-.edu {
-  margin-bottom: 18px;
+.r-list li strong {
+  color: #000000;
+  font-weight: 700;
 }
 
-.edu h4 {
-  font-size: 17px;
-  margin-bottom: 3px;
+/* ─── EDUCATION ───────────────────────────────── */
+.r-edu {
+  margin-bottom: 7px;
+  padding-bottom: 5px;
+  border-bottom: 1px dashed #cccccc;
+  text-align: left;
 }
 
-/* DIVIDER */
-
-.divider {
-  height: 1px;
-  background: #ddd;
-  margin: 15px 0;
+.r-edu:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
-/* SKILLS */
+.r-edu-degree {
+  font-size: 11px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 1px;
+  text-align: left;
+}
 
-.skill-list {
+/* ─── SKILLS ──────────────────────────────────── */
+/* ATS: plain text inside spans — parsers extract these as keywords */
+.r-skill-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 5px;
+  justify-content: flex-start;
 }
 
-.skill-list span {
-  background: #f4f7ff;
-  border: 1px solid #d7e2ff;
-  color: #1565ff;
-  padding: 6px 10px;
-  border-radius: 4px;
-  font-size: 13px;
+.r-skill-tag {
+  background: #eef2ff;
+  border: 1px solid #b8c8ff;
+  color: #0d3db5;
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-size: 9.5px;
+  font-weight: 700;
 }
 
-/* PARAGRAPH */
-
-p {
-  font-size: 13px;
-  line-height: 1.6;
+/* ─── LANGUAGES ───────────────────────────────── */
+.r-lang-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
 }
 
-/* PRINT */
+.r-lang-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  border-bottom: 1px solid #eeeeee;
+  padding-bottom: 4px;
+}
 
+.r-lang-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.r-lang-name {
+  font-weight: 700;
+  color: #000000;
+  text-align: left;
+}
+
+.r-lang-level {
+  color: #0d3db5;
+  font-size: 9.5px;
+  font-weight: 600;
+  background: #eef2ff;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+/* ─── RIGHT COLUMN ────────────────────────────── */
+.r-right {
+  padding-left: 12px;
+  border-left: 1.5px solid #dddddd;
+  text-align: left;
+}
+
+/* ─── PRINT ───────────────────────────────────── */
 @media print {
-  body {
-    background: white;
+  .resume-toolbar { display: none; }
+  body { background: white; }
+  .resume-scroll { padding: 0; }
+  .resume-page {
+    width: 210mm;
+    height: 297mm;
+    box-shadow: none;
+    margin: 0;
+    padding: 8mm 12mm 6mm 12mm;
   }
+}
 
+/* ─── RESPONSIVE ──────────────────────────────── */
+@media (max-width: 800px) {
   .resume-page {
     width: 100%;
-    margin: 0;
-    padding: 20px;
+    height: auto;
+    padding: 16px 14px;
+  }
+  .r-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .r-right {
+    border-left: none;
+    border-top: 1.5px solid #dddddd;
+    padding-left: 0;
+    padding-top: 10px;
+    margin-top: 4px;
   }
 }
-
-
-
-
