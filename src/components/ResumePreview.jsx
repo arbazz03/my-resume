@@ -12,10 +12,11 @@ export default function ResumePreview() {
     try {
       const html2canvas = (await import("html2canvas")).default;
       const canvas = await html2canvas(resumeRef.current, {
-        scale: 3,
+        scale: 4, // better quality for A4
         useCORS: true,
         backgroundColor: "#ffffff",
-        logging: false,
+        width: resumeRef.current.offsetWidth,
+        height: resumeRef.current.offsetHeight,
       });
       const link = document.createElement("a");
       link.download = "Mohammed_Arbaaz_Resume.png";
@@ -30,50 +31,36 @@ export default function ResumePreview() {
 
   // ── Download as PDF — exact preview match, 1 page ──
   // Install: npm install html2canvas jspdf
-  const handleDownloadPdf = async () => {
-    setDownloadingPdf(true);
-    try {
-      const html2canvas = (await import("html2canvas")).default;
-      const { jsPDF }   = await import("jspdf");
+const handleDownloadPdf = async () => {
+  setDownloadingPdf(true);
+  try {
+    const html2canvas = (await import("html2canvas")).default;
+    const { jsPDF } = await import("jspdf");
 
-      const el = resumeRef.current;
+    const el = resumeRef.current;
 
-      // Capture ONLY the visible rendered size — not scrollHeight
-      const rect = el.getBoundingClientRect();
-      const canvas = await html2canvas(el, {
-        scale: 3,
-        useCORS: true,
-        backgroundColor: "#ffffff",
-        logging: false,
-        width: rect.width,
-        height: rect.height,        // exact rendered height, no extra space
-        windowWidth: rect.width,
-        windowHeight: rect.height,
-      });
+    const canvas = await html2canvas(el, {
+      scale: 3,
+      useCORS: true,
+      backgroundColor: "#ffffff",
+    });
 
-      const imgData = canvas.toDataURL("image/png");
+    const imgData = canvas.toDataURL("image/png");
 
-      // Convert px to mm: 1px = 0.264583mm at 96dpi
-      const pxToMm = 0.264583;
-      const contentW = rect.width  * pxToMm;   // should be ~210mm
-      const contentH = rect.height * pxToMm;   // actual content height in mm
+    const pdf = new jsPDF("p", "mm", "a4");
 
-      // Create PDF exactly the size of the content (no blank space)
-      const pdf = new jsPDF({
-        orientation: "portrait",
-        unit: "mm",
-        format: [contentW, contentH],   // custom page size = exact content
-        compress: true,
-      });
+    const pdfWidth = 210;
+    const pdfHeight = 297;
 
-      pdf.addImage(imgData, "PNG", 0, 0, contentW, contentH);
-      pdf.save("Mohammed_Arbaaz_Resume.pdf");
-    } catch (err) {
-      console.error("PDF download failed:", err);
-      alert("PDF download failed.\nnpm install html2canvas jspdf");
-    }
-    setDownloadingPdf(false);
-  };
+    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+
+    pdf.save("Mohammed_Arbaaz_Resume.pdf");
+  } catch (err) {
+    console.error("PDF download failed:", err);
+    alert("PDF download failed");
+  }
+  setDownloadingPdf(false);
+};
 
   const isLoading = downloadingPng || downloadingPdf;
 
@@ -116,19 +103,6 @@ export default function ResumePreview() {
             <div className="r-left">
 
               {/* SUMMARY — ATS keyword-rich paragraph */}
-              <section className="r-section">
-                <h2 className="r-section-title">Summary</h2>
-                <p className="r-body-text">
-                  Backend Developer with 3.9+ years of experience in designing and developing
-                  scalable web applications using Laravel, PHP, MySQL, REST APIs, and third-party
-                  integrations. Experienced in building enterprise-level HRMS, Attendance
-                  Management, Payroll, and Employee Benefit systems. Strong expertise in business
-                  workflow automation, API integration, payroll processing, database design, and
-                  performance optimization. Proven ability to translate complex business
-                  requirements into efficient backend solutions while maintaining code quality
-                  and system reliability.
-                </p>
-              </section>
 
               {/* EXPERIENCE */}
               <section className="r-section">
@@ -152,6 +126,7 @@ export default function ResumePreview() {
                   <h4 className="r-job-title">Laravel Backend Developer</h4>
                   <p className="r-company">FynTune Solution Private Limited</p>
                   <small className="r-meta">09/2022 – 07/2025 | Turbhe, Navi Mumbai</small>
+                  <h4 className="r-job-title">Employee Benefits</h4>
                   <ul className="r-list">
                     <li>Developed custom backend solutions using Laravel to streamline data processing and improve system efficiency.</li>
                     <li>Implemented RESTful APIs to facilitate seamless communication between front-end and back-end systems.</li>
@@ -164,7 +139,6 @@ export default function ResumePreview() {
 
               {/* PROJECTS */}
               <section className="r-section">
-                <h2 className="r-section-title">Projects</h2>
 
                 <div className="r-job">
                   <h4 className="r-job-title">Human Resource Management System (HRMS)</h4>
@@ -189,6 +163,20 @@ export default function ResumePreview() {
 
             {/* ════ RIGHT COLUMN ════ */}
             <div className="r-right">
+
+              <section className="r-section">
+                <h2 className="r-section-title">Summary</h2>
+                <p className="r-body-text">
+                  Backend Developer with 3.9+ years of experience in designing and developing
+                  scalable web applications using Laravel, PHP, MySQL, REST APIs, and third-party
+                  integrations. Experienced in building enterprise-level HRMS, Attendance
+                  Management, Payroll, and Employee Benefit systems. Strong expertise in business
+                  workflow automation, API integration, payroll processing, database design, and
+                  performance optimization. Proven ability to translate complex business
+                  requirements into efficient backend solutions while maintaining code quality
+                  and system reliability.
+                </p>
+              </section>
 
               {/* EDUCATION */}
               <section className="r-section">
@@ -236,19 +224,25 @@ export default function ResumePreview() {
               {/* LANGUAGES */}
               <section className="r-section">
                 <h2 className="r-section-title">Languages</h2>
+
+                <div className="r-lang-list">
+                  {["English", "Hindi", "Marathi"].join(", ")}
+                </div>
+              </section>
+              {/* <section className="r-section">
+                <h2 className="r-section-title">Languages</h2>
                 <div className="r-lang-list">
                   {[
-                    ["English", "Professional"],
-                    ["Hindi",   "Native"],
-                    ["Urdu",    "Native"],
+                    ["English," ],
+                    ["Hindi," ],
+                    ["Marathi." ],
                   ].map(([lang, level]) => (
                     <div className="r-lang-item" key={lang}>
                       <span className="r-lang-name">{lang}</span>
-                      <span className="r-lang-level">{level}</span>
                     </div>
                   ))}
                 </div>
-              </section>
+              </section> */}
             </div>
           </div>
         </div>
