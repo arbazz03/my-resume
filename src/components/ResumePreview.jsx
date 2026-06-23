@@ -113,11 +113,11 @@ const handleDownloadPdf = async () => {
                   <p className="r-company">Coreocean Solutions LLP</p>
                   <small className="r-meta">07/2025 – Present | Thane</small>
                   <ul className="r-list">
-                    <li>Developed and maintained a comprehensive HRMS application for employee management, attendance tracking, leave management, payroll processing, and reporting.</li>
-                    <li>Owned implementation of complex business workflows: leave approvals, cancellation, role-based hierarchy, payroll validations, and attendance synchronization.</li>
+                    <li>Owned full-stack backend architecture for an HRMS & Attendance platform built on Laravel 10, as the sole backend engineer supporting 1,500+ employees with zero downtime escalations</li>
+                    <li>Designed and implemented business-critical modules including leave management, role-based access control (RBAC), multi-level approval workflows for leave management and payroll validation.</li>
                     <li>Enhanced the payroll engine by automating salary calculations using attendance, leave, and supplementary components.</li>
                     <li>Delivered business-critical enhancements across HRMS, payroll, reporting, and employee management modules.</li>
-                    <li>Optimized application performance, database queries, and backend logic to improve system reliability.</li>
+                    <li>Resolved critical performance bottlenecks by refactoring N+1 Eloquent queries and adding composite MySQL indexes, reducing HRMS dashboard load times on high-traffic reporting views.</li>
                     <li><strong>Skills:</strong> Laravel, MySQL, HTML, CSS, Gitlab, Cpanel.</li>
                   </ul>
                 </div>
@@ -128,10 +128,10 @@ const handleDownloadPdf = async () => {
                   <small className="r-meta">09/2022 – 07/2025 | Turbhe, Navi Mumbai</small>
                   <h4 className="r-job-title">Employee Benefits</h4>
                   <ul className="r-list">
-                    <li>Developed custom backend solutions using Laravel to streamline data processing and improve system efficiency.</li>
-                    <li>Implemented RESTful APIs to facilitate seamless communication between front-end and back-end systems.</li>
+                    <li>Integrated SMS, Email, and WhatsApp communication APIs to trigger real-time notifications based on business events and workflow actions.</li>
                     <li>Managed third-party API integrations and communication channels to notify users for events.</li>
-                    <li>Integrated third-party APIs and services to enhance functionality of internal systems.</li>
+                    <li>Implemented RESTful APIs to facilitate seamless communication between front-end and back-end systems.</li>
+                    <li>Developed custom backend solutions using Laravel to streamline data processing and improve system efficiency.</li>
                     <li><strong>Skills:</strong> Laravel, MySQL, Gitea, Postman.</li>
                   </ul>
                 </div>
@@ -153,9 +153,10 @@ const handleDownloadPdf = async () => {
                 <div className="r-job">
                   <h4 className="r-job-title">Quote Management System</h4>
                   <ul className="r-list">
-                    <li>Led backend development and database schema design; participated in code reviews.</li>
+                    <li>Assisted in leading the project as a backend developer.</li>
                     <li>Collaborated with frontend team to ensure seamless API integration and data flow.</li>
-                    <li><strong>Skills:</strong> Laravel, MySQL, Github.</li>
+                    <li>Followed clean code practices and participated in sprint planning and code reviews.</li>
+                    <li><strong>Skills:</strong> Laravel, MySQL, Postman, Github.</li>
                   </ul>
                 </div>
               </section>
