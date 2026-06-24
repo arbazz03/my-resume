@@ -118,7 +118,7 @@ const handleDownloadPdf = async () => {
                     <li>Enhanced the payroll engine by automating salary calculations using attendance, leave, and supplementary components.</li>
                     <li>Delivered business-critical enhancements across HRMS, payroll, reporting, and employee management modules.</li>
                     <li>Resolved critical performance bottlenecks by refactoring N+1 Eloquent queries and adding composite MySQL indexes, reducing HRMS dashboard load times on high-traffic reporting views.</li>
-                    <li><strong>Skills:</strong> Laravel, MySQL, HTML, CSS, Gitlab, Cpanel.</li>
+                    <li><strong>Tech Stack :</strong> Laravel, MySQL, HTML, CSS, Gitlab, Cpanel.</li>
                   </ul>
                 </div>
 
@@ -132,7 +132,7 @@ const handleDownloadPdf = async () => {
                     <li>Managed third-party API integrations and communication channels to notify users for events.</li>
                     <li>Implemented RESTful APIs to facilitate seamless communication between front-end and back-end systems.</li>
                     <li>Developed custom backend solutions using Laravel to streamline data processing and improve system efficiency.</li>
-                    <li><strong>Skills:</strong> Laravel, MySQL, Gitea, Postman.</li>
+                    <li><strong>Tech Stack :</strong> Laravel, MySQL, Gitea, Postman.</li>
                   </ul>
                 </div>
               </section>
@@ -146,7 +146,7 @@ const handleDownloadPdf = async () => {
                     <li>Developed HRMS Web app to manage employee data, attendance, and salary operations.</li>
                     <li>Built authentication modules — login, logout, role-based access control using Laravel.</li>
                     <li>Integrated AdminLTE dashboard; built attendance tracking and salary slip generation modules.</li>
-                    <li><strong>Skills:</strong> Laravel, AdminLTE, MySQL, Blade, HTML/CSS.</li>
+                    <li><strong>Tech Stack :</strong> Laravel, AdminLTE, MySQL, Blade, HTML/CSS.</li>
                   </ul>
                 </div>
 
@@ -156,7 +156,7 @@ const handleDownloadPdf = async () => {
                     <li>Assisted in leading the project as a backend developer.</li>
                     <li>Collaborated with frontend team to ensure seamless API integration and data flow.</li>
                     <li>Followed clean code practices and participated in sprint planning and code reviews.</li>
-                    <li><strong>Skills:</strong> Laravel, MySQL, Postman, Github.</li>
+                    <li><strong>Tech Stack :</strong> Laravel, MySQL, Postman, Github.</li>
                   </ul>
                 </div>
               </section>
@@ -169,7 +169,7 @@ const handleDownloadPdf = async () => {
                 <h2 className="r-section-title">Summary</h2>
                 <p className="r-body-text">
                   Backend Developer with 3.9+ years of experience in designing and developing
-                  scalable web applications using Laravel, PHP, MySQL, REST APIs, and third-party
+                  scalable web applications using Laravel, MySQL, MVC Architecture, REST APIs, and third-party
                   integrations. Experienced in building enterprise-level HRMS, Attendance
                   Management, Payroll, and Employee Benefit systems. Strong expertise in business
                   workflow automation, API integration, payroll processing, database design, and
@@ -215,7 +215,7 @@ const handleDownloadPdf = async () => {
                   {[
                     "Laravel", "PHP", "HTML", "CSS",
                     "MySQL", "Linux", "GitHub", "REST API",
-                    "Postman", "AdminLTE", "Blade", "Cpanel",
+                    "Postman", "Blade", "Cpanel", "React.js (Basic)"
                   ].map((s) => (
                     <span key={s} className="r-skill-tag">{s}</span>
                   ))}
