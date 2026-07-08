@@ -131,6 +131,19 @@ body {
   text-align: left;
 }
 
+.r-contact a {
+  color: #1f1f1f;       /* ya apna resume ka text color */
+  text-decoration: none;
+}
+
+.r-contact a:visited {
+  color: #1f1f1f;        /* isko set na karo toh visited link light purple ho jayega */
+}
+
+.r-contact a:hover {
+  text-decoration: underline;
+}
+
 /* ─── BODY GRID ───────────────────────────────── */
 .r-grid {
   display: grid;
@@ -162,7 +175,7 @@ body {
 
 /* ─── BODY TEXT ───────────────────────────────── */
 .r-body-text {
-  font-size: 9.8px;
+  font-size: 11px;
   line-height: 1.55;
   color: #111111;
   text-align: left;
@@ -184,7 +197,7 @@ body {
 
 /* ATS: uses <h4> for job title */
 .r-job-title {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   color: #000000;
   margin-bottom: 1px;
@@ -193,7 +206,7 @@ body {
 
 .r-company {
   color: #1a50d4;
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 700;
   text-align: left;
 }
@@ -214,7 +227,7 @@ body {
 }
 
 .r-list li {
-  font-size: 9.8px;
+  font-size: 11px;
   line-height: 1.5;
   color: #111111;
   margin-bottom: 2px;

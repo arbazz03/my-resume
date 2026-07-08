@@ -89,11 +89,19 @@ const handleDownloadPdf = async () => {
             <h1 className="r-name">Mohammed Arbaaz Riyaz Ahmed Khan</h1>
             <p className="r-role">Laravel Developer</p>
             <div className="r-contact">
-              <span>📞 7304733409</span>
-              <span>✉ arbaazkhan007.ak3@gmail.com</span>
-              <span>🔗 linkedin.com/in/arbaazkhan03</span>
-              <span>📍 Thane</span>
-            </div>
+            <span>
+              📞 <a href="tel:+917304733409">7304733409</a>
+            </span>
+            <span>
+              ✉ <a href="mailto:arbaazkhan007.ak3@gmail.com">arbaazkhan007.ak3@gmail.com</a>
+            </span>
+            <span>
+              🔗 <a href="https://linkedin.com/in/arbaazkhan03" target="_blank" rel="noopener noreferrer">
+                linkedin.com/in/arbaazkhan03
+              </a>
+            </span>
+            <span>📍 Thane</span>
+          </div>
           </header>
 
           {/* ══ BODY GRID ══ */}
@@ -113,12 +121,21 @@ const handleDownloadPdf = async () => {
                   <p className="r-company">Coreocean Solutions LLP</p>
                   <small className="r-meta">07/2025 – Present | Thane</small>
                   <ul className="r-list">
-                    <li>Owned full-stack backend architecture for an HRMS & Attendance platform built on Laravel 10, as the sole backend engineer supporting 1,500+ employees with zero downtime escalations</li>
+                    {/* <li>Owned full-stack backend architecture for an HRMS & Attendance platform built on Laravel 10, as the sole backend engineer supporting 1,500+ employees with zero downtime escalations</li>
                     <li>Designed and implemented business-critical modules including leave management, role-based access control (RBAC), multi-level approval workflows for leave management and payroll validation.</li>
                     <li>Enhanced the payroll engine by automating salary calculations using attendance, leave, and supplementary components.</li>
                     <li>Delivered business-critical enhancements across HRMS, payroll, reporting, and employee management modules.</li>
-                    <li>Resolved critical performance bottlenecks by refactoring N+1 Eloquent queries and adding composite MySQL indexes, reducing HRMS dashboard load times on high-traffic reporting views.</li>
-                    <li><strong>Tech Stack :</strong> Laravel, MySQL, HTML, CSS, Gitlab, Cpanel.</li>
+                    <li>Resolved critical performance bottlenecks by refactoring N+1 Eloquent queries and adding composite MySQL indexes, reducing HRMS dashboard load times on high-traffic reporting views.</li> */}
+                    {/* <li>Built a rule-based Attendance Engine that auto-generates monthly attendance while applying configurable business rules for late marks, sandwich leave policy, week-offs, and night shifts</li> */}
+                    <li>Owned end-to-end backend architecture for an HRMS & Attendance Management platform built on Laravel 10, acting as the sole backend engineer supporting 1,500+ employees with zero downtime escalations</li>
+                    <li>Designed and implemented Role-Based Access Control (RBAC) to secure workflows for Leave Management workflow covering leave application, multi-tier approval/rejection, and cancellation of already-approved leaves</li>
+                    <li>Developed an Attendance Verification module that auto-syncs system-generated attendance data ahead of payroll while enabling HR to manually adjust individual records before salary finalization</li>
+                    <li>Engineered the core Payroll Processing engine, calculating employee salaries from basic pay and present-day attendance, automatically deriving allowances and deductions</li>
+                    <li>Built Monthly and Yearly Reporting modules covering pay sheets, attendance summaries, leave utilization, supplementary earnings, and Dearness Allowance (DA) billing for HR and Finance stakeholders</li>
+                    <li>Resolved critical performance bottlenecks by refactoring N+1 Eloquent queries and adding composite MySQL indexes, significantly reducing HRMS dashboard load times on high-traffic reporting views</li>
+
+                    <li><strong>Tech Stack :</strong> Laravel 10, MySQL, HTML, CSS, Gitlab, Cpanel.</li>
+
                   </ul>
                 </div>
 
@@ -184,15 +201,15 @@ const handleDownloadPdf = async () => {
                 <h2 className="r-section-title">Education</h2>
 
                 <div className="r-edu">
-                  <h4 className="r-edu-degree">BSCIT</h4>
-                  <p className="r-company">SJRS College, Kalwa</p>
-                  <small className="r-meta">2017 – 2020</small>
-                </div>
-
-                <div className="r-edu">
                   <h4 className="r-edu-degree">MCA</h4>
                   <p className="r-company">ASM IMCOST, Thane</p>
                   <small className="r-meta">2020 – 2022</small>
+                </div>
+                
+                <div className="r-edu">
+                  <h4 className="r-edu-degree">BSCIT</h4>
+                  <p className="r-company">SJRS College, Kalwa</p>
+                  <small className="r-meta">2017 – 2020</small>
                 </div>
 
                 <div className="r-edu">
