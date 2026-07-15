@@ -1,5 +1,11 @@
 import { useRef, useState } from "react";
 import "../styles/resume.css";
+import {
+    FaPhone,
+    FaEnvelope,
+    FaLinkedin,
+    FaLocationDot
+} from "react-icons/fa6";
 
 export default function ResumePreview() {
   const resumeRef = useRef(null);
@@ -31,52 +37,52 @@ export default function ResumePreview() {
 
   // ── Download as PDF — exact preview match, 1 page ──
   // Install: npm install html2canvas jspdf
-// const handleDownloadPdf = async () => {
-//   setDownloadingPdf(true);
-//   try {
-//     const html2canvas = (await import("html2canvas")).default;
-//     const { jsPDF } = await import("jspdf");
+  // const handleDownloadPdf = async () => {
+  //   setDownloadingPdf(true);
+  //   try {
+  //     const html2canvas = (await import("html2canvas")).default;
+  //     const { jsPDF } = await import("jspdf");
 
-//     const el = resumeRef.current;
+  //     const el = resumeRef.current;
 
-//     const canvas = await html2canvas(el, {
-//       scale: 3,
-//       useCORS: true,
-//       backgroundColor: "#ffffff",
-//     });
+  //     const canvas = await html2canvas(el, {
+  //       scale: 3,
+  //       useCORS: true,
+  //       backgroundColor: "#ffffff",
+  //     });
 
-//     const imgData = canvas.toDataURL("image/png");
+  //     const imgData = canvas.toDataURL("image/png");
 
-//     const pdf = new jsPDF("p", "mm", "a4");
+  //     const pdf = new jsPDF("p", "mm", "a4");
 
-//     const pdfWidth = 210;
-//     const pdfHeight = 297;
+  //     const pdfWidth = 210;
+  //     const pdfHeight = 297;
 
 
-//     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+  //     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
 
-// // phone
-//     pdf.link(18, 12, 35, 5, {
-//         url: "tel:+917304733409"
-//     });
+  // // phone
+  //     pdf.link(18, 12, 35, 5, {
+  //         url: "tel:+917304733409"
+  //     });
 
-//     // email
-//     pdf.link(62, 12, 60, 5, {
-//         url: "mailto:arbaazkhan007.ak3@gmail.com"
-//     });
+  //     // email
+  //     pdf.link(62, 12, 60, 5, {
+  //         url: "mailto:arbaazkhan007.ak3@gmail.com"
+  //     });
 
-//     // linkedin
-//     pdf.link(125, 12, 75, 5, {
-//         url: "https://linkedin.com/in/arbaazkhan03"
-//     });
+  //     // linkedin
+  //     pdf.link(125, 12, 75, 5, {
+  //         url: "https://linkedin.com/in/arbaazkhan03"
+  //     });
 
-//     pdf.save("Mohammed_Arbaaz11111111111111111_Resume.pdf");
-//   } catch (err) {
-//     console.error("PDF download failed:", err);
-//     alert("PDF download failed");
-//   }
-//   setDownloadingPdf(false);
-// };
+  //     pdf.save("Mohammed_Arbaaz11111111111111111_Resume.pdf");
+  //   } catch (err) {
+  //     console.error("PDF download failed:", err);
+  //     alert("PDF download failed");
+  //   }
+  //   setDownloadingPdf(false);
+  // };
   const handleDownloadPdf = async () => {
     setDownloadingPdf(true);
 
@@ -132,7 +138,7 @@ export default function ResumePreview() {
         url: "https://www.linkedin.com/in/arbaazkhan03",
       });
 
-      pdf.save("Mohammed_Arbaaz_Resume.pdf");
+      pdf.save("Mohammed_Arbaaz_Khan_Resume.pdf");
     } catch (err) {
       console.error(err);
     }
@@ -167,19 +173,30 @@ export default function ResumePreview() {
             <h1 className="r-name">Mohammed Arbaaz Riyaz Ahmed Khan</h1>
             <p className="r-role">Laravel Developer</p>
             <div className="r-contact">
-            <span>
+              <span>
               📞 <a href="tel:+917304733409">7304733409</a>
-            </span>
-            <span>
-              ✉ <a href="mailto:arbaazkhan007.ak3@gmail.com">arbaazkhan007.ak3@gmail.com</a>
-            </span>
-            <span>
-              🔗 <a href="https://linkedin.com/in/arbaazkhan03" target="_blank" rel="noopener noreferrer">
-                linkedin.com/in/arbaazkhan03
+              </span>
+              <span>
+
+              <FaPhone />
+
+              <a href="tel:+917304733409">
+
+              7304733409
+
               </a>
-            </span>
-            <span>📍 Thane</span>
-          </div>
+
+              </span>
+              <span>
+                ✉ <a href="mailto:arbaazkhan007.ak3@gmail.com">arbaazkhan007.ak3@gmail.com</a>
+              </span>
+              <span>
+                🔗 <a href="https://linkedin.com/in/arbaazkhan03" target="_blank" rel="noopener noreferrer">
+                  linkedin.com/in/arbaazkhan03
+                </a>
+              </span>
+              <span>📍 Thane</span>
+            </div>
           </header>
 
           {/* ══ BODY GRID ══ */}
@@ -283,7 +300,7 @@ export default function ResumePreview() {
                   <p className="r-company">ASM IMCOST, Thane</p>
                   <small className="r-meta">2020 – 2022</small>
                 </div>
-                
+
                 <div className="r-edu">
                   <h4 className="r-edu-degree">BSCIT</h4>
                   <p className="r-company">SJRS College, Kalwa</p>
