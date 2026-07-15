@@ -31,36 +31,114 @@ export default function ResumePreview() {
 
   // ── Download as PDF — exact preview match, 1 page ──
   // Install: npm install html2canvas jspdf
-const handleDownloadPdf = async () => {
-  setDownloadingPdf(true);
-  try {
-    const html2canvas = (await import("html2canvas")).default;
-    const { jsPDF } = await import("jspdf");
+// const handleDownloadPdf = async () => {
+//   setDownloadingPdf(true);
+//   try {
+//     const html2canvas = (await import("html2canvas")).default;
+//     const { jsPDF } = await import("jspdf");
 
-    const el = resumeRef.current;
+//     const el = resumeRef.current;
 
-    const canvas = await html2canvas(el, {
-      scale: 3,
-      useCORS: true,
-      backgroundColor: "#ffffff",
-    });
+//     const canvas = await html2canvas(el, {
+//       scale: 3,
+//       useCORS: true,
+//       backgroundColor: "#ffffff",
+//     });
 
-    const imgData = canvas.toDataURL("image/png");
+//     const imgData = canvas.toDataURL("image/png");
 
-    const pdf = new jsPDF("p", "mm", "a4");
+//     const pdf = new jsPDF("p", "mm", "a4");
 
-    const pdfWidth = 210;
-    const pdfHeight = 297;
+//     const pdfWidth = 210;
+//     const pdfHeight = 297;
 
-    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
 
-    pdf.save("Mohammed_Arbaaz_Resume.pdf");
-  } catch (err) {
-    console.error("PDF download failed:", err);
-    alert("PDF download failed");
-  }
-  setDownloadingPdf(false);
-};
+//     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+
+// // phone
+//     pdf.link(18, 12, 35, 5, {
+//         url: "tel:+917304733409"
+//     });
+
+//     // email
+//     pdf.link(62, 12, 60, 5, {
+//         url: "mailto:arbaazkhan007.ak3@gmail.com"
+//     });
+
+//     // linkedin
+//     pdf.link(125, 12, 75, 5, {
+//         url: "https://linkedin.com/in/arbaazkhan03"
+//     });
+
+//     pdf.save("Mohammed_Arbaaz11111111111111111_Resume.pdf");
+//   } catch (err) {
+//     console.error("PDF download failed:", err);
+//     alert("PDF download failed");
+//   }
+//   setDownloadingPdf(false);
+// };
+  const handleDownloadPdf = async () => {
+    setDownloadingPdf(true);
+
+    try {
+      const html2canvas = (await import("html2canvas")).default;
+      const { jsPDF } = await import("jspdf");
+
+      const el = resumeRef.current;
+
+      const canvas = await html2canvas(el, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#ffffff",
+      });
+
+      // Smaller PDF
+      const imgData = canvas.toDataURL("image/jpeg", 0.85);
+
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
+        compress: true,
+      });
+
+      pdf.addImage(
+        imgData,
+        "JPEG",
+        0,
+        0,
+        210,
+        297,
+        undefined,
+        "FAST"
+      );
+
+      // -----------------------------
+      // Hyperlinks (adjust positions)
+      // -----------------------------
+
+      // Phone
+      pdf.link(18, 15, 28, 5, {
+        url: "tel:+917304733409",
+      });
+
+      // Email
+      pdf.link(55, 15, 55, 5, {
+        url: "mailto:arbaazkhan007.ak3@gmail.com",
+      });
+
+      // LinkedIn
+      pdf.link(118, 15, 70, 5, {
+        url: "https://www.linkedin.com/in/arbaazkhan03",
+      });
+
+      pdf.save("Mohammed_Arbaaz_Resume.pdf");
+    } catch (err) {
+      console.error(err);
+    }
+
+    setDownloadingPdf(false);
+  };
 
   const isLoading = downloadingPng || downloadingPdf;
 
