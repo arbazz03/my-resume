@@ -79,7 +79,10 @@ body {
   - Font: Arial (ATS-safe)
 */
 .resume-page {
-  width: 210mm;
+  /* width: 210mm; */
+  grid-template-columns: 61% 39%;
+
+  gap: 14px;
   min-height: 297mm;     /* IMPORTANT: use min-height instead of fixed height */
   background: #ffffff;
 
@@ -91,7 +94,9 @@ body {
   box-sizing: border-box;
 
   /* Prevent clipping issues */
-  overflow: hidden;
+  /* overflow: hidden; */
+  height: auto;
+  overflow: visible;
 }
 
 /* ─── HEADER ──────────────────────────────────── */
@@ -156,7 +161,7 @@ body {
 
 /* ─── SECTION ─────────────────────────────────── */
 .r-section {
-  margin-bottom: 9px;
+  margin-bottom: 6px;
   text-align: left;
 }
 
@@ -175,7 +180,7 @@ body {
 
 /* ─── BODY TEXT ───────────────────────────────── */
 .r-body-text {
-  font-size: 11px;
+  font-size: 10px;
   line-height: 1.55;
   color: #111111;
   text-align: left;
@@ -227,7 +232,7 @@ body {
 }
 
 .r-list li {
-  font-size: 11px;
+  font-size: 10px;
   line-height: 1.5;
   color: #111111;
   margin-bottom: 2px;
@@ -327,15 +332,56 @@ body {
 
 /* ─── PRINT ───────────────────────────────────── */
 @media print {
-  .resume-toolbar { display: none; }
-  body { background: white; }
-  .resume-scroll { padding: 0; }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  html,
+  body {
+    width: 210mm;
+    height: 297mm;
+    margin: 0;
+    padding: 0;
+    background: white;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .resume-toolbar {
+    display: none !important;
+  }
+
+  .resume-wrapper,
+  .resume-scroll {
+    display: block;
+    padding: 0;
+    margin: 0;
+    overflow: visible !important;
+  }
+
   .resume-page {
     width: 210mm;
     height: 297mm;
-    box-shadow: none;
     margin: 0;
-    padding: 8mm 12mm 6mm 12mm;
+    padding: 7mm 8mm;
+    box-shadow: none;
+    overflow: hidden;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* KEEP YOUR GRID */
+  .r-grid {
+    display: grid !important;
+    grid-template-columns: 61% 39% !important;
+    gap: 14px;
+  }
+
+  .r-right {
+    border-left: 1.5px solid #ddd;
+    padding-left: 12px;
   }
 }
 

@@ -1,8 +1,14 @@
 import { useRef, useState } from "react";
+import { useReactToPrint } from "react-to-print";
 import "../styles/resume.css";
 
 export default function ResumePreview() {
   const resumeRef = useRef(null);
+  const handlePrint = useReactToPrint({
+      contentRef: resumeRef,
+      documentTitle: "Mohammed_Arbaaz_Resume",
+  });
+
   const [downloadingPng, setDownloadingPng] = useState(false);
   const [downloadingPdf, setDownloadingPdf] = useState(false);
 
@@ -31,36 +37,36 @@ export default function ResumePreview() {
 
   // ── Download as PDF — exact preview match, 1 page ──
   // Install: npm install html2canvas jspdf
-const handleDownloadPdf = async () => {
-  setDownloadingPdf(true);
-  try {
-    const html2canvas = (await import("html2canvas")).default;
-    const { jsPDF } = await import("jspdf");
+  // const handleDownloadPdf = async () => {
+  //   setDownloadingPdf(true);
+  //   try {
+  //     const html2canvas = (await import("html2canvas")).default;
+  //     const { jsPDF } = await import("jspdf");
 
-    const el = resumeRef.current;
+  //     const el = resumeRef.current;
 
-    const canvas = await html2canvas(el, {
-      scale: 3,
-      useCORS: true,
-      backgroundColor: "#ffffff",
-    });
+  //     const canvas = await html2canvas(el, {
+  //       scale: 3,
+  //       useCORS: true,
+  //       backgroundColor: "#ffffff",
+  //     });
 
-    const imgData = canvas.toDataURL("image/png");
+  //     const imgData = canvas.toDataURL("image/png");
 
-    const pdf = new jsPDF("p", "mm", "a4");
+  //     const pdf = new jsPDF("p", "mm", "a4");
 
-    const pdfWidth = 210;
-    const pdfHeight = 297;
+  //     const pdfWidth = 210;
+  //     const pdfHeight = 297;
 
-    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+  //     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
 
-    pdf.save("Mohammed_Arbaaz_Resume.pdf");
-  } catch (err) {
-    console.error("PDF download failed:", err);
-    alert("PDF download failed");
-  }
-  setDownloadingPdf(false);
-};
+  //     pdf.save("Mohammed_Arbaaz_Resume.pdf");
+  //   } catch (err) {
+  //     console.error("PDF download failed:", err);
+  //     alert("PDF download failed");
+  //   }
+  //   setDownloadingPdf(false);
+  // };
 
   const isLoading = downloadingPng || downloadingPdf;
 
@@ -74,8 +80,14 @@ const handleDownloadPdf = async () => {
           <button className="btn-download btn-png" onClick={handleDownloadPng} disabled={isLoading}>
             {downloadingPng ? "⏳ Generating…" : "⬇ Download PNG"}
           </button>
-          <button className="btn-download btn-pdf" onClick={handleDownloadPdf} disabled={isLoading}>
+          {/* <button className="btn-download btn-pdf" onClick={handleDownloadPdf} disabled={isLoading}>
             {downloadingPdf ? "⏳ Generating…" : "⬇ Download PDF"}
+          </button> */}
+          <button
+              className="btn-download btn-pdf"
+              onClick={handlePrint}
+          >
+              ⬇ Download PDF
           </button>
         </div>
       </div>
@@ -133,6 +145,7 @@ const handleDownloadPdf = async () => {
                     <li>Engineered the core Payroll Processing engine, calculating employee salaries from basic pay and present-day attendance, automatically deriving allowances and deductions</li>
                     <li>Built Monthly and Yearly Reporting modules covering pay sheets, attendance summaries, leave utilization, supplementary earnings, and Dearness Allowance (DA) billing for HR and Finance stakeholders</li>
                     <li>Resolved critical performance bottlenecks by refactoring N+1 Eloquent queries and adding composite MySQL indexes, significantly reducing HRMS dashboard load times on high-traffic reporting views</li>
+                    <li>Leveraged Al-assisted development tools (ChatGPT, Claude, and Cursor) to accelerate debugging, optimize SQL queries, generate boilerplate code and improve documentation while adhering to Laravel best practices, improving overall development efficiency.</li>
 
                     <li><strong>Tech Stack :</strong> Laravel 10, MySQL, HTML, CSS, Gitlab, Cpanel.</li>
 
@@ -186,12 +199,17 @@ const handleDownloadPdf = async () => {
                 <h2 className="r-section-title">Summary</h2>
                 <p className="r-body-text">
                   Backend Developer with 3.9+ years of experience in designing and developing
-                  scalable web applications using Laravel, MySQL, MVC Architecture, REST APIs, and third-party
+                  scalable web applications using Laravel, MySQL, MVC Architecture, REST APIs and third-party
                   integrations. Experienced in building enterprise-level HRMS, Attendance
-                  Management, Payroll, and Employee Benefit systems. Strong expertise in business
-                  workflow automation, API integration, payroll processing, database design, and
-                  performance optimization. Proven ability to translate complex business
-                  requirements into efficient backend solutions while maintaining code quality
+                  Management, Payroll, and Employee Benefit systems.  Strong expertise in
+                  business workflow automation, API integration,
+                  payroll processing, database design, and
+                  performance optimization. Proficient in leveraging
+                  Al-assisted development tools (ChatGPT, Claude
+                  and Cursor) to speed up development, debugging
+                  and documentation. Proven ability to translate
+                  complex business requirements into efficient
+                  backend solutions while maintaining code quality
                   and system reliability.
                 </p>
               </section>
